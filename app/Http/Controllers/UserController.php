@@ -50,6 +50,14 @@ class UserController extends Controller
         return $this->userService->getAllData($request);
     }
 
+    public function show($id){
+        $data = [
+            'pageTitle' => 'View User',
+            'user' => $this->userService->find($id),
+        ];
+        return view('users.show', $data);
+    }
+
     // process user(each other) like
     public function userProfileLike($ownerId){
         $likeStatus =  $this->userService->processUserLike($ownerId);

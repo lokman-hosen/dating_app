@@ -53,7 +53,7 @@ class UserService extends BaseService {
                     }
                     $actions .= '<a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill action-button like-button" data-owner-user-id="' . $row->id . '" href="#" title="'.$title.'"><i class="far '.$actionIcon.'" style="font-size: 1.7rem;"></i></a>';
                 }
-                /*$actions.= '<a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill action-button"  href="" title="Dislike"><i class="flaticon-circle"></i></a>';*/
+                $actions.= '<a href="' . route('user.show', [$row->id]) . '" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View"><i class="flaticon-eye"></i></a>';
                 return $actions;
             })
             ->addColumn('age', function ($row) {

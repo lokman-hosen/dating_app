@@ -23,4 +23,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 //user
 Route::get('user/get-data', 'UserController@getData');
 Route::get('/user', 'UserController@index')->name('user.list');
+Route::get('/user/{id}', 'UserController@show')->name('user.show');
 Route::post('user-profile-like/{id}', 'UserController@userProfileLike')->name('user.profile.like');
