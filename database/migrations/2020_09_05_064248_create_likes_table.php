@@ -18,6 +18,7 @@ class CreateLikesTable extends Migration
             $table->unsignedInteger('owner_id');
             $table->unsignedInteger('follower_id');
             $table->tinyInteger('like_status')->comment('0 for dislike and 1 for like');
+            $table->timestamps();
         });
     }
 

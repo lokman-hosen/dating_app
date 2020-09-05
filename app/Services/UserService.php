@@ -70,13 +70,31 @@ class UserService extends BaseService {
 
     public function processUserLike($ownerId){
         $followerId = Auth::id();
-        $check = $this->likeModel->where('owner_id', $ownerId)->where('follower_id', $followerId)->pluck('like_status');
+        // check already user liked or disliked profile
+        $check = $this->likeModel->where('owner_id', $ownerId)->where('follower_id', $followerId)->first();
+        // if have like/dislike info then process existing info or save new like info
+        if ($check){
+            // if already liked then dislike
+            if ($check->like_status == 1){
+                $like = $this->likeModel->where('owner_id', $ownerId)
+                    ->where('follower_id', $followerId)
+                    ->update(['like_status' => 0]);
+            }else{
+                // if already disliked then like again
+                $like = $this->likeModel->where('owner_id', $ownerId)
+                    ->where('follower_id', $followerId)
+                    ->update(['like_status' => 1]);
+            }
+        }else{
+           $like = $this->likeModel->create([
+                'owner_id' => $ownerId,
+                'follower_id' => $followerId,
+                'like_status' => 1,
+            ]);
+        }
 
-       return $this->likeModel->insert([
-            'owner_id' => $ownerId,
-            'follower_id' => $followerId,
-            'like_status' => 1,
-       ]);
+        return $like;
+
     }
 
 }

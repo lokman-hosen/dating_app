@@ -101,21 +101,6 @@
                         })
                     }
                     location.reload();
-                    /*if (response.status){
-                        var table = $('#attendance-data').DataTable();
-                        table.destroy();
-
-                        var attendanceTableColumn = [
-                            {"data":"student_id","name":"student_id"},
-                            {"data":"subject_id","name":"subject_id"},
-                            {"data":"attendance","name":"attendance"},
-                            {"data":"action","name":"action"}
-                        ];
-                        generateDatatable('attendance-data', attendanceTableColumn, baseUrl+'admin/attendance/get-data/'+routineId, 1, 'asc');
-
-                        $('#user-like-modal').modal('hide');
-
-                    }*/
                 },
                 error: function (xhr) {
                     $('#user-like-modal').modal('hide');
