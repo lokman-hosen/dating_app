@@ -1,5 +1,7 @@
 <?php
 use App\Services\UtilityServices;
+use Carbon\Carbon;
+
 /**
  * get status
  *
@@ -48,19 +50,6 @@ function setMessage($type, $label = '')
     return $msg;
 }
 
-function getStatus($status_id){
-    if ($status_id == 1 ){
-        $status = '<span class="m-badge m-badge--success">Status : Active</span>';
-    }elseif ($status_id == 2){
-        $status = '<span class="m-badge m-badge--warning">Status : Warning</span>';
-    }elseif ($status_id == 0){
-        $status = '<span class="m-badge m-badge--danger">Status : Inactive</span>';
-    }else{
-        $status = '';
-    }
-    return $status;
-}
-
 function setGender($gender_id){
     if ($gender_id == 1 ){
         $gender = 'Male';
@@ -74,19 +63,10 @@ function setGender($gender_id){
     return $gender;
 }
 
-function checkExist($value){
-    if ($value){
-        $value = $value;
-    }else{
-        $value = 'N/A';
+function calculateAgeByBirthDate($birthDate){
+    if ($birthDate){
+       return Carbon::createFromDate($birthDate)->age;
     }
-    return $value;
-}
-
-
-function checkEmpty($value){
-
-    return isset($value) ? (!empty($value) ? $value : null) : null;
 }
 
 

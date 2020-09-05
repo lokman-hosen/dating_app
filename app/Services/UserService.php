@@ -57,7 +57,7 @@ class UserService extends BaseService {
                 return $actions;
             })
             ->addColumn('age', function ($row) {
-                return '30Years';
+                return calculateAgeByBirthDate($row->birth_date);
             })
             ->editColumn('user_image', function ($row) {
                 return '<img src="'. url('storage/user_image/'.$row->user_image).'" width="100"/>';

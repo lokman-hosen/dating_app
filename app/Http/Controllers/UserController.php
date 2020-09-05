@@ -30,7 +30,7 @@ class UserController extends Controller
     public function index(){
         $data = [
             'pageTitle' => 'User List',
-            'tableHeads' => ['Id', 'Image', 'Name', 'Distance', 'Gender', 'Age', 'Action'],
+            'tableHeads' => ['Id', 'Image', 'Name', 'Distance', 'Gender', 'Age(in year)', 'Action'],
             'dataUrl' => $this->redirectUrl.'/get-data',
             'columns' => [
                 ['data' => 'id', 'name' => 'id'],
