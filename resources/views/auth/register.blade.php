@@ -1,6 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .form-control-feedback{
+            color: red;
+        }
+        #location_latitude-error{
+            text-align: center;
+            color: #fff;
+            background-color: #f66e84;
+            border-color: #f55f78;
+            padding: 0.7rem;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+    </style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -8,10 +23,13 @@
                 <div class="card-header">Register</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" id="general-form">
                         @csrf
                         <input type="hidden" class="form-control" name="location_latitude" id="location_latitude">
                         <input type="hidden" class="form-control" name="location_longitude" id="location_longitude">
+                       {{-- <div class="alert alert-danger" role="alert">
+                            A simple danger alert—check it out!
+                        </div>--}}
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
                             <div class="col-md-6">
@@ -51,7 +69,7 @@
                         <div class="form-group row">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">Select Gender</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="gender" required>
+                                <select class="form-control @error('gender') is-invalid @enderror" name="gender" >
                                     <option value="">--------Select--------</option>
                                     <option value="1">Male</option>
                                     <option value="2">Female</option>
@@ -86,12 +104,7 @@
                         <div class="form-group row">
                             <label for="userImage" class="col-md-4 col-form-label text-md-right">Upload Photo</label>
                             <div class="col-md-6">
-                                <input id="user_image" type="file" class="form-control-file @error('user_image') is-invalid @enderror" name="user_image" value="{{ old('user_image') }}" placeholder="Your birth date" required autocomplete="user_image" autofocus>
-                                @error('user_image')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="user_image" type="file" class="form-control-file" name="user_image" value="{{ old('user_image') }}" placeholder="Your birth date" autocomplete="user_image" autofocus>
                             </div>
                         </div>
 
@@ -140,6 +153,59 @@
             /* x.innerHTML="Latitude: " + position.coords.latitude +
                  "<br>Longitude: " + position.coords.longitude;*/
         }
+
+        //form validation
+        $('#general-form').validate({
+            rules:{
+                name: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                },
+                birth_date: {
+                    required: true,
+                },
+                gender: {
+                    required: true,
+                    min: 1,
+                },
+                password: {
+                    required: true,
+                },
+                password_confirmation: {
+                    required: true,
+                },
+                location_latitude: {
+                    required: true,
+                },
+            },
+
+            messages: {
+                name:{
+                    required: 'Name field is require'
+                },
+                email:{
+                    required: 'Email field is require'
+                },
+                birth_date:{
+                    required: 'Barth date field is require'
+                },
+                gender:{
+                    required: 'Gender is field require'
+                },
+                password:{
+                    required: 'Password is field require'
+                },
+
+                password_confirmation:{
+                    required: 'Password confirm is field require'
+                },
+                location_latitude:{
+                    required: 'Please refresh browser or try again in a new tab and allow browser to take you location info'
+                },
+            }
+        });
 
 
     </script>
