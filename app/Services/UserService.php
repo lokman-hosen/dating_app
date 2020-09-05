@@ -60,7 +60,8 @@ class UserService extends BaseService {
                 return calculateAgeByBirthDate($row->birth_date);
             })
             ->editColumn('user_image', function ($row) {
-                return '<img src="'. url('storage/user_image/'.$row->user_image).'" width="60"/>';
+                $imagePath = isset($row->user_image) ? $row->user_image : 'default.png';
+                return '<img src="'. url('storage/user_image/'.$imagePath).'" width="60"/>';
             })
             ->editColumn('gender', function ($row) {
                 return setGender($row->status);

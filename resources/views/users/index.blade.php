@@ -87,9 +87,6 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    console.log(response);
-                    console.log(response.status);
-                    console.log(response.mutualFriend);
                     $('#user-like-modal').modal('hide');
 
                     if (response.status){

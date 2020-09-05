@@ -30,7 +30,8 @@
                                     </div>
                                     <div class="m-card-profile__pic">
                                         <div class="m-card-profile__pic-wrapper">
-                                            <img src="{{url('storage/user_image/'.$user->user_image)}}" alt="User image">
+                                            @php $imagePath = isset($user->user_image) ? $user->user_image : 'default.png'; @endphp
+                                            <img src="{{url('storage/user_image/'.$imagePath)}}" alt="User image">
                                         </div>
                                     </div>
                                     <div class="m-card-profile__details">
