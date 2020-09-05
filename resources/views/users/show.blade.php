@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="m-portlet__head-tools">
-                <a href="{{ route('user.list') }}" class="btn btn-primary m-btn m-btn--icon"><i class="fas fa-book-reader pr-2"></i>User List</a>
+                <a href="{{ route('user.list') }}" class="btn btn-primary m-btn m-btn--icon"><i class="fa fa-users pr-2"></i>User List</a>
             </div>
         </div>
             <div class="m-portlet__body">
@@ -65,7 +65,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if(\Illuminate\Support\Facades\Auth::id() == $user->id)
+                                @if(Auth::id() == $user->id)
                                 <hr>
                                 <div class="kt-portlet__body">
                                     <div class="kt-section kt-section--first">

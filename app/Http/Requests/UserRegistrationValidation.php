@@ -25,12 +25,12 @@ class UserRegistrationValidation extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'gender' => 'required|numeric',
             'birth_date' => 'required|date',
             //'location_latitude' => 'required',
             'location_longitude' => 'required',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:8',
             'password_confirmation' => 'required',
         ];
     }

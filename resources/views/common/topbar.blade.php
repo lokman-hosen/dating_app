@@ -142,26 +142,13 @@
                                                             <span class="m-nav__section-text">Section</span>
                                                         </li>
                                                         <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
+                                                                <a href="{{route('user.show', Auth::id())}}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-profile-1"></i>
                                                                     <span class="m-nav__link-title">
                                                                         <span class="m-nav__link-wrap">
                                                                             <span class="m-nav__link-text">My Profile</span>
                                                                         </span>
                                                                     </span>
-                                                                </a>
-
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                <span class="m-nav__link-text">Messages</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-lock"></i>
-                                                                    <span class="m-nav__link-text">Change Password</span>
                                                                 </a>
 
                                                         </li>

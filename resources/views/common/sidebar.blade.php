@@ -40,7 +40,7 @@
             <li class="m-menu__item {{ Request::is('user*') ? 'm-menu__item--active' : '' }}" aria-haspopup="true" m-menu-link-redirect="1">
                 <a href="{{route('user.list')}}" class="m-menu__link ">
                     <span class="m-menu__item-here"></span>
-                    <i class="m-menu__link-icon flaticon-suitcase"></i>
+                    <i class="m-menu__link-icon fa fa-users"></i>
                     <span class="m-menu__link-text">Users</span>
                 </a>
             </li>

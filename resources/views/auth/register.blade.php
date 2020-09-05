@@ -10,7 +10,7 @@
             color: #fff;
             background-color: #f66e84;
             border-color: #f55f78;
-            padding: 0.7rem;
+            /*padding: 0.7rem;*/
             font-size: 15px;
             font-weight: bold;
             margin-bottom: 1rem;
@@ -27,9 +27,6 @@
                         @csrf
                         <input type="hidden" class="form-control" name="location_latitude" id="location_latitude">
                         <input type="hidden" class="form-control" name="location_longitude" id="location_longitude">
-                       {{-- <div class="alert alert-danger" role="alert">
-                            A simple danger alert—check it out!
-                        </div>--}}
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
                             <div class="col-md-6">
@@ -69,7 +66,7 @@
                         <div class="form-group row">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">Select Gender</label>
                             <div class="col-md-6">
-                                <select class="form-control @error('gender') is-invalid @enderror" name="gender" >
+                                <select class="form-control @error('gender') is-invalid @enderror" name="gender" required>
                                     <option value="">--------Select--------</option>
                                     <option value="1">Male</option>
                                     <option value="2">Female</option>
