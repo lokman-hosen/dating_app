@@ -65,31 +65,30 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <form class="kt-form kt-form--label-right">
-                                    <div class="kt-portlet__body">
-                                        <div class="kt-section kt-section--first">
-                                            <div class="kt-section__body">
-                                                <form enctype="multipart/form-data">
-                                                    <div class="row">
-                                                        <div class="col-xs-12 col-sm-12">
-                                                            <div class="form-group  m-form__group ">
-                                                                <label class="form-control-label">Change User Image</label>
-                                                                <input type="file" class="form-control m-input" name="title">
-                                                            </div>
+                                <div class="kt-portlet__body">
+                                    <div class="kt-section kt-section--first">
+                                        <div class="kt-section__body">
+                                            <form class="m-form m-form--fit m-form--label-align-right" action="{{ route('user.profile.img.change', $user->id) }}" enctype="multipart/form-data" method="post">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12">
+                                                        <div class="form-group  m-form__group ">
+                                                            <label class="form-control-label">Change User Image</label>
+                                                            <input type="file" class="form-control m-input" name="user_image">
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="m-form__actions">
-                                                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Update Image</button>
-                                                            </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="m-form__actions">
+                                                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Update Image</button>
                                                         </div>
                                                     </div>
-                                                </form>
-                                            </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

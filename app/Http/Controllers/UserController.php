@@ -50,12 +50,25 @@ class UserController extends Controller
         return $this->userService->getAllData($request);
     }
 
+    // user details
     public function show($id){
         $data = [
             'pageTitle' => 'View User',
             'user' => $this->userService->find($id),
         ];
         return view('users.show', $data);
+    }
+
+    // update user profile image
+    public function changeUserProfileImage(Request $request, $userId){
+        $user = $this->userService->updateUserImage($request, $userId);
+        if ($user){
+            $request->session()->flash('success', setMessage('update', 'User Profile Image'));
+            return redirect()->route('user.show',$userId);
+        }else{
+            $request->session()->flash('error', setMessage('update.error', 'User Profile Image'));
+            return redirect()->route('user.list');
+        }
     }
 
     // process user(each other) like

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Image;
 
 class RegisterController extends Controller
 {
@@ -78,19 +79,22 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         //dd($request->all());
+        $slug = str_slug($request->name);
         //upload course image
         if ($request->hasFile('user_image')){
             $userImageFile = $request->file('user_image');
             //make unique name for image
             $currentDate = now()->toDateString();
-            $userImageName= $currentDate.'_'.uniqid().'.'.$userImageFile->getClientOriginalExtension();
+            $userImageName = $slug.'_'.$currentDate.'_'.uniqid().'.'.$userImageFile->getClientOriginalExtension();
             if (!Storage::disk('public')->exists('user_image')) {
                 Storage::disk('public')->makeDirectory('user_image');
             }
             //image and upload
-            Storage::disk('public')->put('user_image/'.$userImageName, $userImageFile);
+            // resize image and upload
+            $userImage = Image::make($userImageFile)->resize(400, 350)->stream();
+            Storage::disk('public')->put('course/'.$userImageName, $userImage);
         }else{
-            $userImageName = 'default.png';
+            $userImage = 'default.png';
         }
         $user = $this->userModel->create([
             'name' => $request->name,
@@ -100,7 +104,7 @@ class RegisterController extends Controller
             'location_latitude' => $request->location_latitude,
             'location_longitude' => $request->location_longitude,
             'password' => Hash::make($request->password),
-            'user_image' => $userImageName,
+            'user_image' => $userImage,
         ]);
 
         $this->guard()->login($user);

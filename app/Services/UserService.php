@@ -6,6 +6,9 @@ use App\Like;
 use App\User;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 /**
  * Class UserService
@@ -36,10 +39,7 @@ class UserService extends BaseService {
      * @return JsonResponse
      */
     public function getAllData($request){
-
         $query = $this->model->select();
-        //dd($query->get());
-
         return Datatables::of($query)
             ->addColumn('action', function ($row) {
                 $actions = '';
@@ -60,7 +60,7 @@ class UserService extends BaseService {
                 return calculateAgeByBirthDate($row->birth_date);
             })
             ->editColumn('user_image', function ($row) {
-                return '<img src="'. url('storage/user_image/'.$row->user_image).'" width="100"/>';
+                return '<img src="'. url('storage/user_image/'.$row->user_image).'" width="60"/>';
             })
             ->editColumn('gender', function ($row) {
                 return setGender($row->status);
@@ -121,6 +121,36 @@ class UserService extends BaseService {
         }else{
             return false;
         }
+    }
+
+    public function updateUserImage($request, $userId){
+        $user = $this->model->findOrFail($userId);
+
+        $slug = Str::slug($user->name);
+        if ($request->hasFile('user_image')){
+            $userImageFile = $request->file('user_image');
+            //make unique name for image
+            $currentDate = now()->toDateString();
+            $userImageName = $slug.'_'.$currentDate.'_'.uniqid().'.'.$userImageFile->getClientOriginalExtension();
+            if (!Storage::disk('public')->exists('user_image')) {
+                Storage::disk('public')->makeDirectory('user_image');
+            }
+            //delete old image
+            if (Storage::disk('public')->exists('user_image/'.$user->user_image)){
+                Storage::disk('public')->delete('user_image/'.$user->user_image);
+            }
+            //image and upload
+            // resize image and upload
+            $userImage = Image::make($userImageFile)->resize(400, 350)->stream();
+            Storage::disk('public')->put('user_image/'.$userImageName, $userImage);
+        }else{
+            $userImageName = $user->user_image;
+        }
+        $this->model->where('id', $userId)->update([
+            'user_image' => $userImageName,
+        ]);
+
+        return $user;
     }
 
 }
