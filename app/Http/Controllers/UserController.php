@@ -50,10 +50,12 @@ class UserController extends Controller
         return $this->userService->getAllData($request);
     }
 
+    // process user(each other) like
     public function userProfileLike($ownerId){
         $likeStatus =  $this->userService->processUserLike($ownerId);
         $mutualLike = $this->userService->checkMutualLikers($ownerId);
         if ($likeStatus){
+            // for mutual like
             if ($mutualLike){
                 return response()->json(['status' => true, 'mutualFriend' => true]);
             }
