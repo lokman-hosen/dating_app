@@ -1,0 +1,23 @@
+.btn {
+    padding: .4rem .85rem !important;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+.m-form.m-form--fit .m-form__group {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+.m-portlet .m-portlet__body {
+    padding: 1rem 2.2rem !important;
+}
+
+.m-form .m-form__group {
+    padding-bottom: 10px !important;
+}
+.form-control[type=text], .form-control[type=password], .form-control[type=email], .form-control[type=number], select.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 4px) !important;
+    padding: .475rem .75rem !important;
+    font-size: 1rem;
+}
