@@ -104,4 +104,23 @@ class UserService extends BaseService {
 
     }
 
+    public function checkMutualLikers($ownerId){
+        $followerId = Auth::id();
+        $ownerLikeCheck = $this->likeModel->where('owner_id', $ownerId)
+            ->where('follower_id', $followerId)
+            ->where('like_status', 1)
+            ->count();
+        if ($ownerLikeCheck > 0){
+            $followerLikeCheck = $this->likeModel->where('follower_id', $ownerId)
+                ->where('owner_id', $followerId)
+                ->where('like_status', 1)
+                ->count();
+            if ($followerLikeCheck > 0){
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+
 }

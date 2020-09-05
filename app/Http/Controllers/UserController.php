@@ -52,7 +52,11 @@ class UserController extends Controller
 
     public function userProfileLike($ownerId){
         $likeStatus =  $this->userService->processUserLike($ownerId);
+        $mutualLike = $this->userService->checkMutualLikers($ownerId);
         if ($likeStatus){
+            if ($mutualLike){
+                return response()->json(['status' => true, 'mutualFriend' => true]);
+            }
             return response()->json(['status' => true]);
         }
     }

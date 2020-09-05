@@ -87,6 +87,9 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
+                    console.log(response);
+                    console.log(response.status);
+                    console.log(response.mutualFriend);
                     $('#user-like-modal').modal('hide');
 
                     if (response.status){
@@ -103,17 +106,25 @@
                             {"data":"action","name":"action"}
                         ];
                         generateDatatable('dataTable', userTableColumn, baseUrl+'user/get-data', 1, 'asc');
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: "You liked selected profile",
-                            type: 'success',
-                            showConfirmButton: false,
-                            timer: 900
-                        })
+                        if (response.mutualFriend){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: "It's a Match!",
+                                type: 'success',
+                                showConfirmButton: true,
+                            })
+                        }else{
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: "You liked selected user profile",
+                                type: 'success',
+                                showConfirmButton: false,
+                                timer: 900
+                            })
+                        }
                     }
-                    location.reload();
                 },
                 error: function (xhr) {
                     $('#user-like-modal').modal('hide');
