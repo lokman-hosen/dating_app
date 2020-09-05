@@ -10,7 +10,6 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
-
                         <input type="hidden" class="form-control" name="location_latitude" id="location_latitude">
                         <input type="hidden" class="form-control" name="location_longitude" id="location_longitude">
                         <div class="form-group row">

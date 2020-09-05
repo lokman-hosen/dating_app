@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRegistrationValidation;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -77,7 +78,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function register(Request $request)
+    public function register(UserRegistrationValidation $request)
     {
         //dd($request->all());
         $slug = Str::slug($request->name);
