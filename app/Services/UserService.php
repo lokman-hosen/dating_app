@@ -44,9 +44,16 @@ class UserService extends BaseService {
             ->addColumn('action', function ($row) {
                 $actions = '';
                 if (Auth::id() != $row->id){
-                    $actions .= '<a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill action-button like-button" data-owner-user-id="' . $row->id . '" href="#" title="Like"><i class="flaticon-like"></i></a>';
+                    $likedStatus = $this->likeModel->where('owner_id', $row->id)->where('follower_id', Auth::id())->where('like_status', 1)->first();
+                    $actionIcon = 'fa-thumbs-up';
+                    $title = 'Like';
+                    if ($likedStatus){
+                        $actionIcon = 'fa-thumbs-down';
+                        $title = 'Dislike';
+                    }
+                    $actions .= '<a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill action-button like-button" data-owner-user-id="' . $row->id . '" href="#" title="'.$title.'"><i class="far '.$actionIcon.'" style="font-size: 1.7rem;"></i></a>';
                 }
-                $actions.= '<a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill action-button"  href="" title="Dislike"><i class="flaticon-circle"></i></a>';
+                /*$actions.= '<a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill action-button"  href="" title="Dislike"><i class="flaticon-circle"></i></a>';*/
                 return $actions;
             })
             ->addColumn('age', function ($row) {
