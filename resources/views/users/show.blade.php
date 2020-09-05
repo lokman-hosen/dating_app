@@ -65,6 +65,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if(\Illuminate\Support\Facades\Auth::id() == $user->id)
                                 <hr>
                                 <div class="kt-portlet__body">
                                     <div class="kt-section kt-section--first">
@@ -79,6 +80,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="m-form__actions">
@@ -90,6 +92,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>

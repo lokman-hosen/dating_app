@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Image;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class RegisterController extends Controller
 {
@@ -79,7 +80,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         //dd($request->all());
-        $slug = str_slug($request->name);
+        $slug = Str::slug($request->name);
         //upload course image
         if ($request->hasFile('user_image')){
             $userImageFile = $request->file('user_image');
@@ -104,7 +105,7 @@ class RegisterController extends Controller
             'location_latitude' => $request->location_latitude,
             'location_longitude' => $request->location_longitude,
             'password' => Hash::make($request->password),
-            'user_image' => $userImage,
+            'user_image' => checkEmpty($userImage),
         ]);
 
         $this->guard()->login($user);

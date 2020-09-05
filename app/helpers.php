@@ -69,4 +69,8 @@ function calculateAgeByBirthDate($birthDate){
     }
 }
 
+function checkEmpty($value){
+    return isset($value) ? (!empty($value) ? $value : null) : null;
+}
+
 
