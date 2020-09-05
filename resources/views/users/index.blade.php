@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <!-- delete lesson modal start-->
+    <!-- like confirm modal start-->
     <div class="modal fade" id="user-like-modal" tabindex="-1" role="dialog" aria-labelledby="userLikeLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -57,29 +57,28 @@
             </div>
         </div>
     </div>
-    <!-- delete lesson modal end-->
+    <!-- like confirm modal end-->
 
 @endsection
 
 @push('scripts')
+    <script src="{{asset('assets/global/plugins/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/global/scripts/charts.js')}}"></script>
     <script>
         $(document).on('click', '.like-button', function (e) {
             var ownerUserId = $(this).data('owner-user-id');
             $('#ownerUserId').val(ownerUserId);
             $('#user-like-modal').modal('show');
-            //alert(baseUrl+ 'admin/lesson/'+lessonId,)
         });
 
         $('#submit-btn').click(function (e) {
             e.preventDefault();
             var ownerUserId = $('#ownerUserId').val();
             $.ajax({
-                //type: 'PUT',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                //url: baseUrl+ 'admin/lesson/'+lessonId,
                 url: baseUrl+ 'user-profile-like/'+ownerUserId,
                 dataType: 'JSON',
                 data: {
@@ -91,6 +90,20 @@
                     $('#user-like-modal').modal('hide');
 
                     if (response.status){
+                        var table = $('#dataTable').DataTable();
+                        table.destroy();
+
+                        var userTableColumn = [
+                            {"data":"id","name":"id"},
+                            {"data":"user_image","name":"user_image"},
+                            {"data":"name","name":"name"},
+                            {"data":"distance","name":"distance"},
+                            {"data":"gender","name":"gender"},
+                            {"data":"age","name":"age"},
+                            {"data":"action","name":"action"}
+                        ];
+                        generateDatatable('dataTable', userTableColumn, baseUrl+'user/get-data', 1, 'asc');
+
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
