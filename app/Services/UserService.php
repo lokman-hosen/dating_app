@@ -74,7 +74,7 @@ class UserService extends BaseService {
                 return '<img src="'. url('storage/user_image/'.$imagePath).'" width="60"/>';
             })
             ->editColumn('gender', function ($row) {
-                return setGender($row->status);
+                return setGender($row->gender);
             })
 
             ->addColumn('distance', function ($row) {
