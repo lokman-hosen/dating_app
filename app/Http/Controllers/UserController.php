@@ -27,10 +27,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    // user list
     public function index(){
         $data = [
             'pageTitle' => 'User List',
-            'tableHeads' => ['Id', 'Image', 'Name', 'Distance(km)', 'Gender', 'Age(in year)', 'Action'],
+            'tableHeads' => ['Sr. No', 'Image', 'Name', 'Distance(km)', 'Gender', 'Age(in year)', 'Action'],
             'dataUrl' => $this->redirectUrl.'/get-data',
             'columns' => [
                 ['data' => 'id', 'name' => 'id'],

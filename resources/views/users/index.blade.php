@@ -15,7 +15,7 @@
                 <div class="m-portlet__head">
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
-                            <h3 class="m-portlet__head-text"><i class="fas fa-list-ul pr-2"></i>User List(Around 5 km from you location)</h3>
+                            <h3 class="m-portlet__head-text"><i class="fas fa-list-ul pr-2"></i>User List( Shown around 5 km from you location)</h3>
                         </div>
                     </div>
                 </div>
