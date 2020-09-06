@@ -76,14 +76,14 @@
                                                     <div class="col-xs-12 col-sm-12">
                                                         <div class="form-group  m-form__group ">
                                                             <label class="form-control-label">Change User Image</label>
-                                                            <input type="file" class="form-control m-input" name="user_image">
+                                                            <input type="file" class="form-control m-input" name="user_image" required>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <div class="m-form__actions">
+                                                        <div class="pl-2">
                                                             <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Update Image</button>
                                                         </div>
                                                     </div>

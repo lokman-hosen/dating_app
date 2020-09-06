@@ -83,10 +83,10 @@ class UserService extends BaseService {
                 //$earthRadius = 6371000;
                 $earthRadius = 6371;
 
-                // Calculate distance from login user location to another user(1nd way)
+                // Calculate distance from login user location to another user(1st way)
                  $distance = vincentyGreatCircleDistance($loginUserLat, $loginUserLan, $userLat, $userLan, $earthRadius);
                  if ($distance > 0){
-                     return number_format($distance, 2);
+                     return number_format($distance, 2).' km';
                  }else{
                      return 'Around 1 km';
                  }
