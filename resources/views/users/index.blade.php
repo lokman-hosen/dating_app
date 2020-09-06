@@ -1,5 +1,12 @@
 @extends('layouts.default')
 @section('pageTitle', $pageTitle)
+@push('style')
+    <style>
+        .modal .modal-content .modal-header .close:before {
+            content: "X" !important;
+        }
+    </style>
+@endpush
 
 @section('content')
     <div class="row">
@@ -35,9 +42,9 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Test</h5>
+                    <h5 class="modal-title">Update Like status</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">X</span>
                     </button>
                 </div>
                 <div class="modal-body py-3">

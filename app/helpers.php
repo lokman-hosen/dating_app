@@ -2,25 +2,6 @@
 use App\Services\UtilityServices;
 use Carbon\Carbon;
 
-/**
- * get status
- *
- * @param int $status_id
- * @return string
- */
-
-function setStatus($status_id = ''){
-    if ($status_id == 0) {
-        $status = '<span class="m-badge m-badge--danger">Inactive</span>';
-    } else if($status_id == 1) {
-        $status = '<span class="m-badge m-badge--success">Active</span>';
-    } else {
-        $status = '';
-    }
-
-    return $status;
-}
-
 
 /**
  * Set message
