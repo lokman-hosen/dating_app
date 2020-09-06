@@ -94,9 +94,9 @@ class RegisterController extends Controller
             $userImage = Image::make($userImageFile)->resize(400, 350)->stream();
             Storage::disk('public')->put('user_image/'.$userImageName, $userImage);
         }else{
-            $userImage = 'default.png';
+            $userImageName = 'default.png';
         }
-        //dd($userImage);
+        // save user
         $user = $this->userModel->create([
             'name' => $request->name,
             'email' => $request->email,
