@@ -105,9 +105,10 @@
                             <li class="m-nav__item m-topbar__user-profile  m-dropdown m-dropdown--medium m-dropdown--arrow  m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
                                 <a href="#" class="m-nav__link m-dropdown__toggle">
                                    <span class="m-topbar__userpic">
+                                       {{dd(Auth::user())}}
                                        @php $imagePath = isset(Auth::user()->user_image) ? Auth::user()->user_image : 'default.png'; @endphp
-                                                    <img class="m--img-rounded m--marginless m--img-centered" src="{{url('storage/user_image/'.$imagePath)}}" alt="User image">
-                                                </span>
+                                        <img class="m--img-rounded m--marginless m--img-centered" src="{{url('storage/user_image/'.$imagePath)}}" alt="User image">
+                                    </span>
 
                                     <span class="m-nav__link-icon m-topbar__usericon  m--hide">
 													<span class="m-nav__link-icon-wrapper"><i class="flaticon-user-ok"></i></span>

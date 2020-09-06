@@ -42,6 +42,7 @@ class UserService extends BaseService {
     public function getAllData($request){
         //$query = $this->model->select();
         $query = [];
+        //get userIds By login user lat and lan value
         $userIds = $this->getUserIdsAroundFiveKmOfLoginUserLocation();
         if ($userIds){
             $query = $this->model->select();
@@ -64,6 +65,7 @@ class UserService extends BaseService {
                 $actions.= '<a href="' . route('user.show', [$row->id]) . '" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View"><i class="flaticon-eye"></i></a>';
                 return $actions;
             })
+
             ->addColumn('age', function ($row) {
                 return calculateAgeByBirthDate($row->birth_date);
             })
@@ -80,24 +82,14 @@ class UserService extends BaseService {
                 $userLan = (float) $row->location_longitude;
                 $loginUserLat = (float) Auth::user()->location_latitude;
                 $loginUserLan = (float) Auth::user()->location_longitude;
-                //$earthRadius = 6371000;
                 $earthRadius = 6371;
-
                 // Calculate distance from login user location to another user(1st way)
                  $distance = vincentyGreatCircleDistance($loginUserLat, $loginUserLan, $userLat, $userLan, $earthRadius);
                  if ($distance > 0){
                      return number_format($distance, 2).' km';
                  }else{
-                     return 'Around 1 km';
+                     return 'Nearby';
                  }
-
-                 // Calculate distance from login user location to another user(2nd way)
-                 /*$distance = distance($loginUserLat, $loginUserLan, $userLat, $userLan, 'K');
-                 if ($distance > 0){
-                     return number_format($distance, 2);
-                 }else{
-                     return 'Around 1 km';
-                 }*/
             })
 
             ->rawColumns(['user_image', 'gender', 'action'])
@@ -148,6 +140,7 @@ class UserService extends BaseService {
 
     }
 
+    //check mutual liker
     public function checkMutualLikers($ownerId){
         $followerId = Auth::id();
         $ownerLikeCheck = $this->likeModel->where('owner_id', $ownerId)
@@ -167,6 +160,7 @@ class UserService extends BaseService {
         }
     }
 
+    //change user image
     public function updateUserImage($request, $userId){
         $user = $this->model->findOrFail($userId);
 
@@ -183,7 +177,6 @@ class UserService extends BaseService {
             if (Storage::disk('public')->exists('user_image/'.$user->user_image)){
                 Storage::disk('public')->delete('user_image/'.$user->user_image);
             }
-            //image and upload
             // resize image and upload
             $userImage = Image::make($userImageFile)->resize(400, 350)->stream();
             Storage::disk('public')->put('user_image/'.$userImageName, $userImage);

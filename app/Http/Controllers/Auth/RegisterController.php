@@ -78,9 +78,8 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function register(UserRegistrationValidation $request)
-    {
-        //dd($request->all());
+    // register user
+    public function register(UserRegistrationValidation $request){
         $slug = Str::slug($request->name);
         //upload course image
         if ($request->hasFile('user_image')){
@@ -91,10 +90,9 @@ class RegisterController extends Controller
             if (!Storage::disk('public')->exists('user_image')) {
                 Storage::disk('public')->makeDirectory('user_image');
             }
-            //image and upload
             // resize image and upload
             $userImage = Image::make($userImageFile)->resize(400, 350)->stream();
-            Storage::disk('public')->put('course/'.$userImageName, $userImage);
+            Storage::disk('public')->put('user_image/'.$userImageName, $userImage);
         }else{
             $userImage = 'default.png';
         }
@@ -106,7 +104,7 @@ class RegisterController extends Controller
             'location_latitude' => $request->location_latitude,
             'location_longitude' => $request->location_longitude,
             'password' => Hash::make($request->password),
-            'user_image' => checkEmpty($userImage),
+            'user_image' => $userImage,
         ]);
 
         $this->guard()->login($user);
