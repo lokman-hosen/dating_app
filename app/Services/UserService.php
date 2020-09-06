@@ -40,11 +40,12 @@ class UserService extends BaseService {
      * @return JsonResponse
      */
     public function getAllData($request){
-        $query = $this->model->select();
-
+        //$query = $this->model->select();
+        $query = [];
         $userIds = $this->getUserIdsAroundFiveKmOfLoginUserLocation();
         if ($userIds){
-            $query = $query->whereIn('id', $userIds);
+            $query = $this->model->select();
+            $query->whereIn('id', $userIds);
         }
 
         return Datatables::of($query)
@@ -87,7 +88,7 @@ class UserService extends BaseService {
                  if ($distance > 0){
                      return number_format($distance, 2);
                  }else{
-                     return 0;
+                     return 'Around 1 km';
                  }
 
                  // Calculate distance from login user location to another user(2nd way)
@@ -95,9 +96,8 @@ class UserService extends BaseService {
                  if ($distance > 0){
                      return number_format($distance, 2);
                  }else{
-                     return 0;
+                     return 'Around 1 km';
                  }*/
-                //return '3km';
             })
 
             ->rawColumns(['user_image', 'gender', 'action'])
@@ -109,8 +109,7 @@ class UserService extends BaseService {
         $loginUser = $this->model->findOrFail(Auth::id());
         $lat = (float) $loginUser->location_latitude;
         $lng = (float) $loginUser->location_longitude;
-
-        $userIdsAroundFiveKm = DB::select("SELECT id, ( 6371 * acos( cos( radians(" . $lat . ") ) * cos( radians( location_latitude ) ) * cos( radians( location_longitude ) - radians(" . $lng . ") ) + sin( radians(" . $lat . ") ) * sin( radians( location_latitude ) ) ) ) AS distance FROM users HAVING distance < 5");
+        $userIdsAroundFiveKm = DB::select("SELECT id, ( 6371 * acos( cos( radians(" . $lat . ") ) * cos( radians( location_latitude ) ) * cos( radians( location_longitude ) - radians(" . $lng . ") ) + sin( radians(" . $lat . ") ) * sin( radians( location_latitude ) ) ) ) AS distance FROM users HAVING distance <= 5 ");
         $userIds = [];
         foreach ($userIdsAroundFiveKm as $userId){
             if ($userId->id != $loginUser->id){
