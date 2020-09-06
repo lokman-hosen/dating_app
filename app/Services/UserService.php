@@ -6,6 +6,7 @@ use App\Like;
 use App\User;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -40,6 +41,17 @@ class UserService extends BaseService {
      */
     public function getAllData($request){
         $query = $this->model->select();
+
+        $lat = 24.7105776;
+        $lng = 88.94138650000001;
+
+        $userIdsAroundFiveKm = DB::select("SELECT *, ( 6371 * acos( cos( radians(" . $lat . ") ) * cos( radians( location_latitude ) ) * cos( radians( location_longitude ) - radians(" . $lng . ") ) + sin( radians(" . $lat . ") ) * sin( radians( location_latitude ) ) ) ) AS distance FROM users HAVING distance <= 5");
+        $userIds = [];
+        foreach ($userIdsAroundFiveKm as $userId){
+            $userIds[] = $userId->id;
+        }
+        $query = $query->where('id', '!=', Auth::id() )->whereIn('id', $userIds);
+
         return Datatables::of($query)
             ->addColumn('action', function ($row) {
                 $actions = '';
@@ -71,7 +83,7 @@ class UserService extends BaseService {
                 return '3km';
             })
 
-            ->rawColumns(['status', 'user_image', 'gender', 'action'])
+            ->rawColumns(['user_image', 'gender', 'action'])
 
             ->make(true);
     }
