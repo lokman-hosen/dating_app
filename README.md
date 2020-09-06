@@ -59,3 +59,42 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Installing
+
+Run this command to clone to Xampp htdocs
+
+    git clone https://github.com/lokman-hosen/dating_app.git
+    
+Go to project folder
+
+    cd dating_app
+
+Install composer 
+
+    composer update
+## Environment Variables
+Copy **.env.example** to **.env**
+
+Set the application key
+
+    php artisan key:generate
+
+Change below variables for db in .env file
+
+    DB_HOST=
+    DB_DATABASE=
+    DB_USERNAME=
+    DB_PASSWORD=
+    
+## Migrations
+Run migration
+
+    php artisan migrate
+    
+## Symbolic link for image upload
+To create the symbolic link, you may use the storage:link Artisan command:
+
+    php artisan storage:link
+    
+    
