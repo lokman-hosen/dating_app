@@ -42,15 +42,10 @@ class UserService extends BaseService {
     public function getAllData($request){
         $query = $this->model->select();
 
-        $lat = 24.7105776;
-        $lng = 88.94138650000001;
-
-        $userIdsAroundFiveKm = DB::select("SELECT *, ( 6371 * acos( cos( radians(" . $lat . ") ) * cos( radians( location_latitude ) ) * cos( radians( location_longitude ) - radians(" . $lng . ") ) + sin( radians(" . $lat . ") ) * sin( radians( location_latitude ) ) ) ) AS distance FROM users HAVING distance <= 5");
-        $userIds = [];
-        foreach ($userIdsAroundFiveKm as $userId){
-            $userIds[] = $userId->id;
+        $userIds = $this->getUserIdsAroundFiveKmOfLoginUserLocation();
+        if ($userIds){
+            $query = $query->whereIn('id', $userIds);
         }
-        $query = $query->where('id', '!=', Auth::id() )->whereIn('id', $userIds);
 
         return Datatables::of($query)
             ->addColumn('action', function ($row) {
@@ -86,6 +81,21 @@ class UserService extends BaseService {
             ->rawColumns(['user_image', 'gender', 'action'])
 
             ->make(true);
+    }
+
+    private function getUserIdsAroundFiveKmOfLoginUserLocation(){
+        $loginUser = $this->model->findOrFail(Auth::id());
+        $lat = (float) $loginUser->location_latitude;
+        $lng = (float) $loginUser->location_longitude;
+
+        $userIdsAroundFiveKm = DB::select("SELECT id, ( 6371 * acos( cos( radians(" . $lat . ") ) * cos( radians( location_latitude ) ) * cos( radians( location_longitude ) - radians(" . $lng . ") ) + sin( radians(" . $lat . ") ) * sin( radians( location_latitude ) ) ) ) AS distance FROM users HAVING distance <= 5");
+        $userIds = [];
+        foreach ($userIdsAroundFiveKm as $userId){
+            if ($userId->id != $loginUser->id){
+                $userIds[] = $userId->id;
+            }
+        }
+        return $userIds;
     }
 
     public function processUserLike($ownerId){
