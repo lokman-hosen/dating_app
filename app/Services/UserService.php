@@ -40,7 +40,6 @@ class UserService extends BaseService {
      * @return JsonResponse
      */
     public function getAllData($request){
-        //$query = $this->model->select();
         $query = [];
         //get userIds By login user lat and lan value
         $userIds = $this->getUserIdsAroundFiveKmOfLoginUserLocation();

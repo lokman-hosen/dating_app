@@ -96,6 +96,7 @@ class RegisterController extends Controller
         }else{
             $userImage = 'default.png';
         }
+        //dd($userImage);
         $user = $this->userModel->create([
             'name' => $request->name,
             'email' => $request->email,
@@ -104,7 +105,7 @@ class RegisterController extends Controller
             'location_latitude' => $request->location_latitude,
             'location_longitude' => $request->location_longitude,
             'password' => Hash::make($request->password),
-            'user_image' => $userImage,
+            'user_image' => $userImageName,
         ]);
 
         $this->guard()->login($user);
