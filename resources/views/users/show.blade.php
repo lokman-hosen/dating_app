@@ -75,7 +75,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-12">
                                                         <div class="form-group  m-form__group ">
-                                                            <label class="form-control-label">Change User Image</label>
+                                                            <label class="form-control-label">Change User Image <span class="text-danger">*</span></label>
                                                             <input type="file" class="form-control m-input" name="user_image" required>
                                                         </div>
                                                     </div>

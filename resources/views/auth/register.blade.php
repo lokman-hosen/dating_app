@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @push('style')
+
+    @endpush
     <style>
+        body{
+            font-size: 14px;
+        }
         .form-control-feedback{
             color: red;
         }
@@ -28,7 +35,7 @@
                         <input type="hidden" class="form-control" name="location_latitude" id="location_latitude">
                         <input type="hidden" class="form-control" name="location_longitude" id="location_longitude">
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Name <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Your name" required autocomplete="name" autofocus>
                                 @error('name')
@@ -40,7 +47,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Email Address</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">Email Address <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Your email address" required autocomplete="email">
                                 @error('email')
@@ -52,7 +59,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Date of birth</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Date of birth <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <input id="birth_date" type="text" class="form-control m_datepicker_1 @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" placeholder="Your birth date" required autocomplete="birth_date" autofocus>
                                 @error('birth_date')
@@ -64,12 +71,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="gender" class="col-md-4 col-form-label text-md-right">Select Gender</label>
+                            <label for="gender" class="col-md-4 col-form-label text-md-right">Select Gender <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <select class="form-control @error('gender') is-invalid @enderror" name="gender" required>
                                     <option value="">--------Select--------</option>
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
+                                    <option value="1" {{ app()->request->gender == 1 ? 'selected' : '' }}>Male</option>
+                                    <option value="2" {{ app()->request->gender == 2 ? 'selected' : '' }}>Female</option>
                                     <option value="0">Other</option>
                                 </select>
                                 @error('gender')
@@ -81,7 +88,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Password <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Type password" required autocomplete="new-password">
                                 @error('password')
@@ -93,7 +100,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Re-type password" required autocomplete="new-password">
                             </div>
